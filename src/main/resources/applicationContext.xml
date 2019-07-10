@@ -11,7 +11,7 @@
 
 	<!-- 组件扫描 -->
 	<context:component-scan
-		base-package="com.yueqian.personnel">
+		base-package="com.xpu.hrm">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
@@ -36,17 +36,17 @@
 		<property name="dataSource" ref="datasource"></property>
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:com/yueqian/personnel/dao/*Mapper.xml</value>
+				<value>classpath:com/xpu/hrm/dao/*Mapper.xml</value>
 			</array>
 		</property>
 		<property name="typeAliasesPackage"
-			value="com.yueqian.personnel.domain"></property>
+			value="com.xpu.hrm.bean"></property>
 	</bean>
 
 	<!-- Mapper接口的实例 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage"
-			value="com.yueqian.personnel.dao"></property>
+			value="com.xpu.hrm.dao"></property>
 		<property name="sqlSessionFactoryBeanName"
 			value="sqlSessionFactory"></property>
 	</bean>
@@ -70,7 +70,7 @@
 	<!-- 切面配置 -->
 	<aop:config>
 		<!-- 切点 -->
-		<aop:pointcut expression="execution(public * com.yueqian.personnel.service..*.*(..))" id="pc1"/>
+		<aop:pointcut expression="execution(public * com.xpu.hrm.service..*.*(..))" id="pc1"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="pc1"/>
 	</aop:config>
 </beans>
