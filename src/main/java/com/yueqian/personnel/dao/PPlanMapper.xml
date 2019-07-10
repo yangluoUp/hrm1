@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xpu.hrm.dao.PPlanMapper" >
+  <resultMap id="BaseResultMap" type="com.xpu.hrm.bean.PPlan" >
+    <id column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="p_teacher" property="pTeacher" jdbcType="VARCHAR" />
+    <result column="p_destnition" property="pDestnition" jdbcType="VARCHAR" />
+    <result column="p_stime" property="pStime" jdbcType="TIMESTAMP" />
+    <result column="p_etime" property="pEtime" jdbcType="TIMESTAMP" />
+    <result column="p_summary" property="pSummary" jdbcType="VARCHAR" />
+    <result column="p_person" property="pPerson" jdbcType="VARCHAR" />
+    <result column="p_datum" property="pDatum" jdbcType="VARCHAR" />
+    <result column="p_intro" property="pIntro" jdbcType="VARCHAR" />
+    <result column="p_idea" property="pIdea" jdbcType="VARCHAR" />
+    <result column="p_coupleback" property="pCoupleback" jdbcType="VARCHAR" />
+    <result column="p_result" property="pResult" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    p_id, p_name, p_teacher, p_destnition, p_stime, p_etime, p_summary, p_person, p_datum, 
+    p_intro, p_idea, p_coupleback, p_result
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xpu.hrm.bean.PPlanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from p_plan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from p_plan
+    where p_id = #{pId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from p_plan
+    where p_id = #{pId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xpu.hrm.bean.PPlanExample" >
+    delete from p_plan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xpu.hrm.bean.PPlan" >
+    insert into p_plan (p_id, p_name, p_teacher, 
+      p_destnition, p_stime, p_etime, 
+      p_summary, p_person, p_datum, 
+      p_intro, p_idea, p_coupleback, 
+      p_result)
+    values (#{pId,jdbcType=INTEGER}, #{pName,jdbcType=VARCHAR}, #{pTeacher,jdbcType=VARCHAR}, 
+      #{pDestnition,jdbcType=VARCHAR}, #{pStime,jdbcType=TIMESTAMP}, #{pEtime,jdbcType=TIMESTAMP}, 
+      #{pSummary,jdbcType=VARCHAR}, #{pPerson,jdbcType=VARCHAR}, #{pDatum,jdbcType=VARCHAR}, 
+      #{pIntro,jdbcType=VARCHAR}, #{pIdea,jdbcType=VARCHAR}, #{pCoupleback,jdbcType=VARCHAR}, 
+      #{pResult,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xpu.hrm.bean.PPlan" >
+    insert into p_plan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="pName != null" >
+        p_name,
+      </if>
+      <if test="pTeacher != null" >
+        p_teacher,
+      </if>
+      <if test="pDestnition != null" >
+        p_destnition,
+      </if>
+      <if test="pStime != null" >
+        p_stime,
+      </if>
+      <if test="pEtime != null" >
+        p_etime,
+      </if>
+      <if test="pSummary != null" >
+        p_summary,
+      </if>
+      <if test="pPerson != null" >
+        p_person,
+      </if>
+      <if test="pDatum != null" >
+        p_datum,
+      </if>
+      <if test="pIntro != null" >
+        p_intro,
+      </if>
+      <if test="pIdea != null" >
+        p_idea,
+      </if>
+      <if test="pCoupleback != null" >
+        p_coupleback,
+      </if>
+      <if test="pResult != null" >
+        p_result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null" >
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pTeacher != null" >
+        #{pTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="pDestnition != null" >
+        #{pDestnition,jdbcType=VARCHAR},
+      </if>
+      <if test="pStime != null" >
+        #{pStime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pEtime != null" >
+        #{pEtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pSummary != null" >
+        #{pSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="pPerson != null" >
+        #{pPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="pDatum != null" >
+        #{pDatum,jdbcType=VARCHAR},
+      </if>
+      <if test="pIntro != null" >
+        #{pIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="pIdea != null" >
+        #{pIdea,jdbcType=VARCHAR},
+      </if>
+      <if test="pCoupleback != null" >
+        #{pCoupleback,jdbcType=VARCHAR},
+      </if>
+      <if test="pResult != null" >
+        #{pResult,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xpu.hrm.bean.PPlanExample" resultType="java.lang.Integer" >
+    select count(*) from p_plan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update p_plan
+    <set >
+      <if test="record.pId != null" >
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pName != null" >
+        p_name = #{record.pName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pTeacher != null" >
+        p_teacher = #{record.pTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pDestnition != null" >
+        p_destnition = #{record.pDestnition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pStime != null" >
+        p_stime = #{record.pStime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pEtime != null" >
+        p_etime = #{record.pEtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pSummary != null" >
+        p_summary = #{record.pSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pPerson != null" >
+        p_person = #{record.pPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pDatum != null" >
+        p_datum = #{record.pDatum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pIntro != null" >
+        p_intro = #{record.pIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pIdea != null" >
+        p_idea = #{record.pIdea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pCoupleback != null" >
+        p_coupleback = #{record.pCoupleback,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pResult != null" >
+        p_result = #{record.pResult,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update p_plan
+    set p_id = #{record.pId,jdbcType=INTEGER},
+      p_name = #{record.pName,jdbcType=VARCHAR},
+      p_teacher = #{record.pTeacher,jdbcType=VARCHAR},
+      p_destnition = #{record.pDestnition,jdbcType=VARCHAR},
+      p_stime = #{record.pStime,jdbcType=TIMESTAMP},
+      p_etime = #{record.pEtime,jdbcType=TIMESTAMP},
+      p_summary = #{record.pSummary,jdbcType=VARCHAR},
+      p_person = #{record.pPerson,jdbcType=VARCHAR},
+      p_datum = #{record.pDatum,jdbcType=VARCHAR},
+      p_intro = #{record.pIntro,jdbcType=VARCHAR},
+      p_idea = #{record.pIdea,jdbcType=VARCHAR},
+      p_coupleback = #{record.pCoupleback,jdbcType=VARCHAR},
+      p_result = #{record.pResult,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xpu.hrm.bean.PPlan" >
+    update p_plan
+    <set >
+      <if test="pName != null" >
+        p_name = #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pTeacher != null" >
+        p_teacher = #{pTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="pDestnition != null" >
+        p_destnition = #{pDestnition,jdbcType=VARCHAR},
+      </if>
+      <if test="pStime != null" >
+        p_stime = #{pStime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pEtime != null" >
+        p_etime = #{pEtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pSummary != null" >
+        p_summary = #{pSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="pPerson != null" >
+        p_person = #{pPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="pDatum != null" >
+        p_datum = #{pDatum,jdbcType=VARCHAR},
+      </if>
+      <if test="pIntro != null" >
+        p_intro = #{pIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="pIdea != null" >
+        p_idea = #{pIdea,jdbcType=VARCHAR},
+      </if>
+      <if test="pCoupleback != null" >
+        p_coupleback = #{pCoupleback,jdbcType=VARCHAR},
+      </if>
+      <if test="pResult != null" >
+        p_result = #{pResult,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xpu.hrm.bean.PPlan" >
+    update p_plan
+    set p_name = #{pName,jdbcType=VARCHAR},
+      p_teacher = #{pTeacher,jdbcType=VARCHAR},
+      p_destnition = #{pDestnition,jdbcType=VARCHAR},
+      p_stime = #{pStime,jdbcType=TIMESTAMP},
+      p_etime = #{pEtime,jdbcType=TIMESTAMP},
+      p_summary = #{pSummary,jdbcType=VARCHAR},
+      p_person = #{pPerson,jdbcType=VARCHAR},
+      p_datum = #{pDatum,jdbcType=VARCHAR},
+      p_intro = #{pIntro,jdbcType=VARCHAR},
+      p_idea = #{pIdea,jdbcType=VARCHAR},
+      p_coupleback = #{pCoupleback,jdbcType=VARCHAR},
+      p_result = #{pResult,jdbcType=VARCHAR}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+</mapper>

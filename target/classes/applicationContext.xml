@@ -22,9 +22,9 @@
 		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver"></property>
 		<property name="url"
-			value="jdbc:mysql://127.0.0.1:3306/personnel"></property>
-		<property name="username" value="personnel"></property>
-		<property name="password" value="personnel12345"></property>
+			value="jdbc:mysql://47.103.20.163:3306/hrm"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
 		<property name="maxActive" value="5"></property>
 		<property name="maxIdle" value="5"></property>
 		<property name="maxWait" value="4000"></property>

@@ -1,42 +1,53 @@
 package com.yueqian.personnel.domain;
 
 public class UserInfo {
+    private Integer userId;
 
-	private Integer userId;
-	private String account;
-	private String pwd;
-	private String userName;
+    private String userName;
 
-	public Integer getUserId() {
-		return userId;
-	}
+    private String userPassword;
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    private String userDuty;
 
-	public String getAccount() {
-		return account;
-	}
+    public UserInfo() {
+    }
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+    public UserInfo(Integer userId, String userName, String userPassword, String userDuty) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.userDuty = userDuty;
+    }
 
-	public String getPwd() {
-		return pwd;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
 
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword == null ? null : userPassword.trim();
+    }
+
+    public String getUserDuty() {
+        return userDuty;
+    }
+
+    public void setUserDuty(String userDuty) {
+        this.userDuty = userDuty == null ? null : userDuty.trim();
+    }
 }
