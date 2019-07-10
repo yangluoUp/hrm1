@@ -1,0 +1,4 @@
+com\yueqian\personnel\controller\LoginController.class
+com\yueqian\personnel\domain\UserInfo.class
+com\yueqian\personnel\service\impl\UserServiceImpl.class
+com\yueqian\personnel\service\UserService.class

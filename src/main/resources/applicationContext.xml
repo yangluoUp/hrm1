@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- 组件扫描 -->
+	<context:component-scan
+		base-package="com.yueqian.personnel">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- 数据库连接池 -->
+	<bean id="datasource"
+		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/personnel"></property>
+		<property name="username" value="personnel"></property>
+		<property name="password" value="personnel12345"></property>
+		<property name="maxActive" value="5"></property>
+		<property name="maxIdle" value="5"></property>
+		<property name="maxWait" value="4000"></property>
+	</bean>
+
+	<!-- SQLSessionFactory -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="datasource"></property>
+		<property name="mapperLocations">
+			<array>
+				<value>classpath:com/yueqian/personnel/dao/*Mapper.xml</value>
+			</array>
+		</property>
+		<property name="typeAliasesPackage"
+			value="com.yueqian.personnel.domain"></property>
+	</bean>
+
+	<!-- Mapper接口的实例 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage"
+			value="com.yueqian.personnel.dao"></property>
+		<property name="sqlSessionFactoryBeanName"
+			value="sqlSessionFactory"></property>
+	</bean>
+
+	<!-- 事务管理器 -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="datasource"></property>
+	</bean>
+
+	<!-- 事务增强 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="search*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 切面配置 -->
+	<aop:config>
+		<!-- 切点 -->
+		<aop:pointcut expression="execution(public * com.yueqian.personnel.service..*.*(..))" id="pc1"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pc1"/>
+	</aop:config>
+</beans>
